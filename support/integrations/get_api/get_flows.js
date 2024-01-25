@@ -11,16 +11,16 @@ describe('Moneh API Testing - Flow', () => {
     it(method.toUpperCase() + ' - All Flow', () => {
         cy.request('api/v1/flows/'+ord+'?page='+page).as(method + 'AllFlows')
         cy.get('@' + method + 'AllFlows').then(flow => {
-            cy.componentAPIDefault(flow, is_paginate)
+            cy.templateGet(flow, is_paginate)
         })
     })
-    
+
     it(method.toUpperCase() + ' - Summary', () => {
         const flowType = 'spending'
 
         cy.request('api/v1/flows/summary/'+flowType).as(method + 'Summary')
         cy.get('@' + method + 'Summary').then(flow => {
-            cy.componentAPIDefault(flow, false)
+            cy.templateGet(flow, false)
         })
     })
 })
