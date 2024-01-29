@@ -23,4 +23,14 @@ describe('Moneh API Testing - Flow', () => {
             cy.templateGet(flow, false)
         })
     })
+
+    it(method.toUpperCase() + ' - Total Flow Ammount Per Date By Type', () => {
+        const flowType = 'spending'
+        const view = 'date'
+
+        cy.request('api/v1/flows/dateammount/'+flowType+'/'+view).as(method + 'TotalFlowAmmountPerDateByType')
+        cy.get('@' + method + 'TotalFlowAmmountPerDateByType').then(flow => {
+            cy.templateGet(flow, false)
+        })
+    })
 })

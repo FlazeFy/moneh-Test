@@ -25,6 +25,6 @@ Cypress.Commands.add('templatePost', (obj, builder) => {
     expect(obj.body.data.rows_affected).to.eq(1)
     
     Object.entries(builder).forEach(([key, value]) => {
-        expect(obj.body.data[key]).to.eq(value)
+        expect(obj.body.data.data[key]).to.eq(value)
     });
 });
