@@ -28,3 +28,17 @@ Cypress.Commands.add('templatePost', (obj, builder) => {
         expect(obj.body.data.data[key]).to.eq(value)
     });
 });
+
+Cypress.Commands.add('templateValidateColumn', (data, obj, dataType) => {
+    // Test
+    data.forEach((item) => {
+        obj.forEach((field) => {
+            expect(item).to.be.an('object')
+            expect(item).to.have.property(field).that.is.a(dataType)
+
+            if(dataType == "number"){
+                expect(item[field] % 1).to.equal(0)
+            }
+        });
+    });
+});
