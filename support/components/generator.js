@@ -23,3 +23,16 @@ export const  generateRandNumber= (max, min) => {
 
     return res
 }
+
+export const  generateAuthToken= (type) => {
+    let res = ""
+
+    if(type == "hardcode"){
+        // username : testeruser
+        // password : test123
+        // Signed in at 13/3/25 14:48 WIB
+        res = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjY3OTA4MTc1MjAsImxldmVsIjoiYXBwbGljYXRpb24iLCJ1c2VybmFtZSI6InRlc3RlcnVzZXIifQ.S-wyBOpn6FNcr9UW0-SyAdBhYORfzBNe9IPLoLclarU"
+    } 
+
+    return res
+}

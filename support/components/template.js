@@ -1,4 +1,4 @@
-Cypress.Commands.add('templateGet', (obj, is_paginate) => {
+Cypress.Commands.add('templateGet', (code, obj, is_paginate) => {
     let dataType
 
     // Builder
@@ -9,11 +9,14 @@ Cypress.Commands.add('templateGet', (obj, is_paginate) => {
     }
 
     // Test
-    expect(obj.status).to.equal(200)
+    expect(obj.status).to.equal(code)
     expect(obj.body.message).to.be.a('string')
-    expect(obj.body.data).to.be.a(dataType)
 
-    if(is_paginate){
+    if(is_paginate == false && code == 200){
+        expect(obj.body.data).to.be.a(dataType)
+    }
+
+    if(is_paginate == true && code == 200){
         expect(obj.body.data.data).to.be.a('array')
     }
 });
@@ -40,5 +43,36 @@ Cypress.Commands.add('templateValidateColumn', (data, obj, dataType) => {
                 expect(item[field] % 1).to.equal(0)
             }
         });
+    });
+});
+
+Cypress.Commands.add('templateValidateColumn', (data, obj, dataType, nullable) => {
+    const dataArray = Array.isArray(data) ? data : [data];
+
+    dataArray.forEach((item) => {
+        expect(item).to.be.an('object')
+        obj.forEach((field) => {
+            expect(item).to.have.property(field)
+            if (nullable && item[field] === null) {
+                expect(item[field]).to.be.null
+            } else {
+                expect(item[field]).to.be.a(dataType)
+
+                if(dataType === "number"){
+                    if(Number.isInteger(item[field])){
+                        expect(item[field] % 1).to.equal(0)
+                    } else {
+                        expect(item[field] % 1).to.not.equal(0)
+                    }
+                }
+            }
+        });
+    });
+});
+
+Cypress.Commands.add('templateValidateContain', (data, list, target) => {
+    data.forEach((item, idx) => {
+        expect(item).to.be.an('object')
+        expect(list,`Column ${target} with value = ${item[target]} must contain in list. Index Data : ${idx}`).to.include(item[target])
     });
 });

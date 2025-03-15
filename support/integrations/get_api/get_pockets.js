@@ -11,7 +11,7 @@ describe('Moneh API Testing - Pocket', () => {
     it(method.toUpperCase() + ' - All Pocket', () => {
         cy.request('api/v1/pockets/headers/'+ord+'?page='+page).as(method + 'AllPockets')
         cy.get('@' + method + 'AllPockets').then(pocket => {
-            cy.templateGet(pocket, is_paginate)
+            cy.templateGet(200, pocket, is_paginate)
         })
     })
 })

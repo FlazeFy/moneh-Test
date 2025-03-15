@@ -11,7 +11,7 @@ describe('Moneh API Testing - Flow', () => {
     it(method.toUpperCase() + ' - All Flow', () => {
         cy.request('api/v1/flows/'+ord+'?page='+page).as(method + 'AllFlows')
         cy.get('@' + method + 'AllFlows').then(flow => {
-            cy.templateGet(flow, is_paginate)
+            cy.templateGet(200, flow, is_paginate)
         })
     })
 
@@ -20,7 +20,7 @@ describe('Moneh API Testing - Flow', () => {
 
         cy.request('api/v1/flows/summary/'+flowType).as(method + 'Summary')
         cy.get('@' + method + 'Summary').then(flow => {
-            cy.templateGet(flow, false)
+            cy.templateGet(200, flow, false)
         })
     })
 
@@ -30,7 +30,7 @@ describe('Moneh API Testing - Flow', () => {
 
         cy.request('api/v1/flows/dateammount/'+flowType+'/'+view).as(method + 'TotalFlowAmmountPerDateByType')
         cy.get('@' + method + 'TotalFlowAmmountPerDateByType').then(flow => {
-            cy.templateGet(flow, false)
+            cy.templateGet(200, flow, false)
         })
     })
 })
