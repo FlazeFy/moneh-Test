@@ -76,3 +76,30 @@ Cypress.Commands.add('templateValidateContain', (data, list, target) => {
         expect(list,`Column ${target} with value = ${item[target]} must contain in list. Index Data : ${idx}`).to.include(item[target])
     });
 });
+
+Cypress.Commands.add('templateE2ELogin', (username, password) => {
+    const BASEURL = 'http://localhost:3000'
+    const date = new Date().toISOString().replace(/:/g, '-')
+
+    // Pre Condition : User Must Logged In To Their Account
+    cy.visit(`${BASEURL}/login`)
+    cy.get('#username-input').type(username)
+    cy.get('#password-input').type(password)
+    cy.get('#submit-login-button').click()
+    cy.url().should('include', '/dashboard')
+})
+
+Cypress.Commands.add('templateE2ELoginAPI', (username, password) => {
+    return cy.request({
+        method: 'POST', 
+        url: 'api/v1/login',
+        body: {
+            username: username,
+            password: password,
+        },
+    }).then(res => {
+        expect(res.status).to.equal(200)
+        const token = res.body.data.token
+        return token
+    });
+});

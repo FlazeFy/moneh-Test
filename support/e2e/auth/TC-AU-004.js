@@ -1,7 +1,7 @@
 describe('Moneh E2E Test - TC-AU-004 - Auth', () => {
     const BASEURL = 'http://localhost:3000'
     const username = 'flazefy'
-    const password = 'nopas'
+    const password = 'test'
     const date = new Date().toISOString().replace(/:/g, '-')
 
     it(`User Cant Login With Invalid Credential's Character Length`, () => {
